@@ -1,5 +1,6 @@
 {
   "name": "ebiten-test",
+  "description": "personal project to test ebiten",
   "repository": {
     "type": "git",
     "url": "git@github.com:hirowaki/ebiten-test.git"

@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href="./css/layout.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <title><%= title %></title>
 
     <script>
@@ -22,32 +26,32 @@
         }
     </script>
 </head>
-<body id ="main">
-    <div id="header">
-        <h1><%= title %></h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 headline">
+            <image src="./assets/fish.png" align="left" width="64" height="64" style="padding: 0.5em 0.5em;"></image>
+            <h1><%= title %></h1>
         <h2><a href="https://github.com/hirowaki/ebiten-test" target="_blank">https://github.com/hirowaki/ebiten-test</a></h2>
-    </div>
-
-    <div id="menu">
-        <table>
-            <% directories.forEach((dir) => { %>
-            <% var name = dir.replace(/(^[a-z])|(_[a-z])/g, (l) => {return l.toUpperCase().replace('_', '');});%>
-            <tr>
-                <td>
-                    <button class="button" onClick="changeContent('<%= dir %>');"><%= name %></button>
-                </td>
-            </tr>
-            <% }); %>
-        </table>
-    </div>
-
-    <div id="content">
-        <div>
-            <iframe src="./sample_tutorial1/index.html" name="contentFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
-        </div>
-        <div>
-            <iframe src="./sample_tutorial1/code.html" name="sourceFrame" width="640" height="600" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
         </div>
     </div>
+    <div class="row">
+        <div class="samples col-xs-2">
+            <ul>
+                <% directories.forEach((dir) => { %>
+                    <% var name = dir.replace(/(^[a-z])|(_[a-z])/g, (l) => {return l.toUpperCase().replace('_', '');});%>
+                    <li><a href="javascript:void(0);" onClick="changeContent('<%= dir %>');"><%= name %></a></li>
+                <% }); %>
+            </ul>
+        </div>
+        <div class="content col-xs-10">
+            <div class="view">
+                <iframe src="./sample_tutorial1/index.html" name="contentFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+            </div>
+            <div class="code">
+                <iframe src="./sample_tutorial1/code.html" name="sourceFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,61 +1,57 @@
-#main {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    /*overflow: hidden;*/
+.container {
+    max-width: none !important;
+    width: 970px;
 }
 
-#header {
-    width: 100%;
-    height: 48px;
-    background: #E0E0E0;
-    padding: 4px 4px 4px 8px;
+.headline {
+    background: #F0F0F0;
+    padding: 0;
 }
 
-#header h1 {
+h1 {
     font-family: 'Shrikhand', cursive;
     font-size: 24px;
-    margin: 0;
-    padding: 0;
+    padding: 0.1em 1em 0 0.5em;
 }
 
-#header h2 {
-    font-size: 10px;
-    margin: 0;
-    padding: 0;
+h2 {
+    font-size: 12px;
+    padding: 0.1em 1em 0 0.1em;
     text-align: right;
 }
 
-#menu {
-    float: left;
-    width: 160px;
-    min-height: 100%;
-    background: #F0F0F0;
-    font-size: 75%;
-    padding: 4px 4px 4px 4px;
-}
-
-#content {
-    margin-left: 168px;
-    min-height: 100%;
-    background: #F8F8F8;
-    padding: 4px 4px 4px 16px;
-}
-
-.button {
-    width: auto;
+.samples {
     padding: 0;
-    margin: 0;
-    background-color: transparent;
-    color: black;
-    border: 0;
-    font-size: 100%;
-    overflow: visible;
-    cursor: pointer;
 }
 
-.button:hover {
-    background-color: #4CAF50;
-    color: blue;
+.content {
+    padding: 0;
 }
+
+.view {
+    padding: 1em 1em 0.5em 1em;
+}
+
+.code {
+    padding: 0em 1em 0em 1em;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #F8F8F8;
+    font-size: 80%;
+}
+
+li a {
+    display: block;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #555555;
+    color: white;
+}
+
