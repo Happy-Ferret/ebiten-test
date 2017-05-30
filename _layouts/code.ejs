@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <script type="text/javascript" src="../lib/codemirror.js"></script>
+    <script type="text/javascript" src="../lib/go.js"></script>
+</head>
+
+<body style="font-family: 'Timmana', sans-serif;">
+    <div>
+        <%- subtitle %>.go
+    </div>
+
+    <div>
+        <textarea id="code" width="100%">
+<%- contents %>
+        </textarea>
+    </div>
+</body>
+
+<script>
+    CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'go',
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        viewportMargin: Infinity,
+        lineWrapping: true
+    });
+</script>
+
+</html>

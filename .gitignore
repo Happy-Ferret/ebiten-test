@@ -1,3 +1,13 @@
+# ignore node.js modules
+node_modules
+.node_modules
+_src
+_build
+
+# ignore Apple DS Store
+*.DS_Store
+Thumbs.db
+
 # Binaries for programs and plugins
 *.exe
 *.dll
@@ -15,6 +25,11 @@
 
 cover.out
 .go-version
+.node-version
 glide.lock
 vendor/
 .idea
+bin/
+pkg/
+src/github.com
+src/golang.org
