@@ -15,7 +15,7 @@ func update(screen *ebiten.Image) error {
 	// Display the text though the debug function
 	ebitenutil.DebugPrint(screen, "Press cursor keys!")
 
-	str := "\n";
+	str := "\n"
 	// When the "up arrow key" is pressed..
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
 		str += "You're pressing the 'UP' button.\n"
