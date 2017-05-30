@@ -1,6 +1,6 @@
 package main
 
-// https://github.com/hajimehoshi/ebiten/wiki/Tutorial:Your-first-game-in-Ebiten
+// https://github.com/hajimehoshi/ebiten/wiki/Tutorial:Screen,-colors-and-squares
 
 import (
 	"image/color"
