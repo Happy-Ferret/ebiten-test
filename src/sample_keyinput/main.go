@@ -9,26 +9,26 @@ import (
 )
 
 func update(screen *ebiten.Image) error {
-	// Fill the screen with #0000FF color
+	// Fill the screen with blue.
 	screen.Fill(color.NRGBA{0x00, 0x00, 0xff, 0xff})
 
-	// Display the text though the debug function
+	// display the text using debug output.
 	ebitenutil.DebugPrint(screen, "Press cursor keys!")
 
 	str := "\n"
-	// When the "up arrow key" is pressed..
+	// UP.
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
 		str += "You're pressing the 'UP' button.\n"
 	}
-	// When the "down arrow key" is pressed..
+	// DOWN.
 	if ebiten.IsKeyPressed(ebiten.KeyDown) {
 		str += "You're pressing the 'DOWN' button.\n"
 	}
-	// When the "left arrow key" is pressed..
+	// LEFT.
 	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
 		str += "You're pressing the 'LEFT' button.\n"
 	}
-	// When the "right arrow key" is pressed..
+	// RIGHT.
 	if ebiten.IsKeyPressed(ebiten.KeyRight) {
 		str += "You're pressing the 'RIGHT' button."
 	}

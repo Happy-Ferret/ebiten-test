@@ -6,11 +6,6 @@
 </head>
 
 <body>
-    <div>
-        <% var _subtitle = subtitle.replace(/(^[a-z])|(_[a-z])/g, (l) => {return l.toUpperCase().replace('_', '');});%>
-        <script type="text/javascript">document.write("<%= _subtitle %>")</script>
-    </div>
-    <%- contents %>
-
+<script src="<%- js %>"></script>
 </body>
 </html>

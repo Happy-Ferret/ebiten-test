@@ -16,7 +16,10 @@ func update(screen *ebiten.Image) error {
 	screen.Fill(color.NRGBA{0xff, 0x00, 0x00, 0xff})
 
 	// Display the text though the debug function
-	ebitenutil.DebugPrint(screen, "Our first game in Ebiten!")
+	str := "Our first game in Ebiten!\n"
+	str += "https://github.com/hajimehoshi/ebiten\n"
+	str += "Fill color and put a square block.\n"
+	ebitenutil.DebugPrint(screen, str)
 
 	if square == nil {
 		// Create an 16x16 image

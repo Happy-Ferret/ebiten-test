@@ -8,7 +8,9 @@ import (
 )
 
 func update(screen *ebiten.Image) error {
-	ebitenutil.DebugPrint(screen, "Our first game in Ebiten!")
+	str := "Our first game in Ebiten!\n"
+	str += "https://github.com/hajimehoshi/ebiten\n"
+	ebitenutil.DebugPrint(screen, str)
 	return nil
 }
 
