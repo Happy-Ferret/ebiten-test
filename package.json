@@ -18,7 +18,7 @@
     "bluebird": "*",
     "ejs": "~2.5.6",
     "fs-extra-promise": "*",
-    "enum-files": "https://github.com/hirowaki/enum-files.git",
+    "enum-files": "*",
     "gh-pages": "*",
     "eslint": "*"
   }
