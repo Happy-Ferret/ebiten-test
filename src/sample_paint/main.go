@@ -15,11 +15,63 @@ const (
 	WIDTH  = 320
 	HEIGHT = 240
 	SCALE = 2
-	VELOCITY = 1.5
+	VELOCITY = 1.25
 )
 
+// Vector2D{int, int}
+type Vector2Di struct {
+	x, y int
+}
+
+func (v *Vector2Di) Set(x, y int) *Vector2Di {
+	v.x = x
+	v.y = y
+	return v
+}
+
+func (v *Vector2Di) Sub(s *Vector2Di) *Vector2Di {
+	v.x -= s.x
+	v.y -= s.y
+	return v
+}
+
+func (v *Vector2Di) IsZero() bool {
+	return v.x == 0 && v.y == 0
+}
+
+// Vector2D{float, float}
+type Vector2D struct {
+	x, y float64
+}
+
+func (v *Vector2D) Clone() *Vector2D {
+	return &Vector2D{v.x, v.y}
+}
+
+func (v *Vector2D) Length() float64 {
+	return math.Sqrt(v.x * v.x + v.y * v.y)
+}
+
+func (v *Vector2D) Normalize() *Vector2D {
+	l := v.Length()
+	return v.Scale(1 / l)
+}
+
+func (v *Vector2D) Scale(s float64) *Vector2D {
+	v.x *= s
+	v.y *= s
+	return v
+}
+
+func (v *Vector2D) Add(a *Vector2D) *Vector2D {
+	v.x += a.x
+	v.y += a.y
+	return v
+}
+
 var (
-	count, lx, ly	int
+	count	int
+	lastPos	*Vector2Di
 	brushImage  *ebiten.Image
 	canvasImage *ebiten.Image
 )
@@ -36,36 +88,28 @@ func putDot(x, y float64) {
 }
 
 func lineTo(x, y int) {
-	vx := x
-	vy := y
-
-	if lx < 0 || ly < 0 {
-		vx = 0
-		vy = 0
+	if lastPos == nil {
+		lastPos = &Vector2Di{x, y}
 	} else {
-		vx -= lx
-		vy -= ly
-		if vx == 0 || vy == 0 {
+		dir := &Vector2Di{x, y}
+		if dir.Sub(lastPos).IsZero() {
 			return
 		}
+		// line to.
+		vel := &Vector2D{float64(dir.x), float64(dir.y)}
+		length := vel.Length()
+		vel.Normalize().Scale(VELOCITY)
+
+		pos := &Vector2D{float64(lastPos.x), float64(lastPos.y)}
+		for count := int(length / VELOCITY); count > 0; count-- {
+			putDot(pos.x, pos.y)
+			pos.Add(vel)
+		}
+
+		lastPos.Set(x, y)
 	}
 
-	// line to.
-	fx := float64(vx);
-	fy := float64(vy);
-	length := math.Sqrt(fx * fx + fy * fy);
-	fx = fx / length * VELOCITY;
-	fy = fy / length * VELOCITY;
-	sx := float64(lx)
-	sy := float64(ly)
-	for count := int(length / VELOCITY); count > 0; count-- {
-		putDot(sx, sy)
-		sx += fx
-		sy += fy
-	}
-	putDot(float64(x), float64(y))
-	lx = x
-	ly = y
+	putDot(float64(lastPos.x), float64(lastPos.y))
 }
 
 func update(screen *ebiten.Image) error {
@@ -73,8 +117,7 @@ func update(screen *ebiten.Image) error {
 		mx, my := ebiten.CursorPosition()
 		lineTo(mx, my)
 	} else {
-		lx = -1
-		ly = -1
+		lastPos = nil
 	}
 
 	// draw canvas to screen.
@@ -101,8 +144,7 @@ func main() {
 	canvasImage, _ = ebiten.NewImage(WIDTH, HEIGHT, ebiten.FilterNearest)
 	canvasImage.Fill(color.Gray16{0xeeef})
 
-	lx = -1
-	ly = -1
+	lastPos = nil
 	if err := ebiten.Run(update, WIDTH, HEIGHT, SCALE, "Ebiten Paint"); err != nil {
 		log.Fatal(err)
 	}
