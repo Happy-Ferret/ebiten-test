@@ -15,7 +15,7 @@ const (
 
 var (
 	tick   int
-	back *ebiten.Image
+	back	*ebiten.Image
 	gopher *ebiten.Image
 )
 
@@ -34,11 +34,17 @@ func update(screen *ebiten.Image) error {
 
 	// anchoring to center.
 	op.GeoM.Translate(-float64(w)*.5, -float64(h)*.5)
+
+	coef := float64(tick%ebiten.FPS) / ebiten.FPS
+
+	// rotate.
+	op.GeoM.Rotate(2.0 * math.Pi * coef)
+
 	// move.
 	x := (tick % (WIDTH + w)) - (w >> 1)
-	s := math.Sin(math.Pi * float64(tick%ebiten.FPS) / ebiten.FPS)
-	y := (HEIGHT - (h >> 1)) - int(float64(h>>1)*s)
+	y := (HEIGHT - (h >> 1)) - int(float64(h>>1)*(math.Sin(math.Pi*coef)))
 	op.GeoM.Translate(float64(x), float64(y))
+
 	// queue the command.
 	screen.DrawImage(gopher, op)
 	return nil
@@ -48,7 +54,7 @@ func main() {
 	tick = 0
 
 	var err error
-	back, _, err = ebitenutil.NewImageFromFile("../assets/cal000.png", ebiten.FilterNearest)
+	back, _, err = ebitenutil.NewImageFromFile("../assets/cal001.png", ebiten.FilterNearest)
 	if err != nil {
 		panic(err)
 	}
