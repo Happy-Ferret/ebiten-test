@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	WIDTH  = 320
-	HEIGHT = 240
-	SCALE = 2
+	WIDTH    = 320
+	HEIGHT   = 240
+	SCALE    = 2
 	VELOCITY = 1.25
 )
 
@@ -49,7 +49,7 @@ func (v *Vector2D) Clone() *Vector2D {
 }
 
 func (v *Vector2D) Length() float64 {
-	return math.Sqrt(v.x * v.x + v.y * v.y)
+	return math.Sqrt(v.x*v.x + v.y*v.y)
 }
 
 func (v *Vector2D) Normalize() *Vector2D {
@@ -70,8 +70,8 @@ func (v *Vector2D) Add(a *Vector2D) *Vector2D {
 }
 
 var (
-	count	int
-	lastPos	*Vector2Di
+	count       int
+	lastPos     *Vector2Di
 	brushImage  *ebiten.Image
 	canvasImage *ebiten.Image
 )
@@ -134,14 +134,14 @@ func main() {
 	// https://golang.org/src/image/image.go
 	const a0, a1, a2 = 0x00, 0x40, 0x80
 	brushImage, _ = ebiten.NewImageFromImage(&image.Alpha{
-		Pix: []uint8 {
+		Pix: []uint8{
 			a0, a1, a1, a0,
 			a1, a2, a2, a1,
 			a1, a2, a2, a1,
 			a0, a1, a1, a0,
 		},
-		Stride: 4,	// 4 x 4 square.
-		Rect: image.Rect(0, 0, 4, 4),
+		Stride: 4, // 4 x 4 square.
+		Rect:   image.Rect(0, 0, 4, 4),
 	}, ebiten.FilterNearest)
 
 	// clear canvasImage with Gray16(0xEEEF).

@@ -3,10 +3,10 @@ package main
 // https://github.com/hajimehoshi/ebiten/wiki/Tutorial%3AHandle-user-inputs
 
 import (
+	"fmt"
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
 	"image/color"
-	"fmt"
 )
 
 func update(screen *ebiten.Image) error {

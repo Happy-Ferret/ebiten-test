@@ -15,8 +15,8 @@ const (
 )
 
 var (
-	tick	int
-	gopher	*ebiten.Image
+	tick   int
+	gopher *ebiten.Image
 )
 
 func update(screen *ebiten.Image) error {
@@ -35,9 +35,9 @@ func update(screen *ebiten.Image) error {
 	// anchoring to center.
 	op.GeoM.Translate(-float64(w)*.5, -float64(h)*.5)
 	// move.
-	x := (tick % (WIDTH + w))-(w>>1)
-	s := math.Sin(math.Pi * float64(tick % ebiten.FPS) / ebiten.FPS)
-	y := (HEIGHT - (h >> 1)) - int(float64(h >> 1) * s)
+	x := (tick % (WIDTH + w)) - (w >> 1)
+	s := math.Sin(math.Pi * float64(tick%ebiten.FPS) / ebiten.FPS)
+	y := (HEIGHT - (h >> 1)) - int(float64(h>>1)*s)
 	op.GeoM.Translate(float64(x), float64(y))
 	// queue the command.
 	screen.DrawImage(gopher, op)
@@ -45,10 +45,10 @@ func update(screen *ebiten.Image) error {
 }
 
 func main() {
-	tick = 0;
+	tick = 0
 
 	var err error
-	gopher , _, err = ebitenutil.NewImageFromFile("../assets/gophercolor.png", ebiten.FilterNearest)
+	gopher, _, err = ebitenutil.NewImageFromFile("../assets/gophercolor.png", ebiten.FilterNearest)
 	if err != nil {
 		panic(err)
 	}
