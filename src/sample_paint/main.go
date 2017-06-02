@@ -113,6 +113,10 @@ func lineTo(x, y int) {
 }
 
 func update(screen *ebiten.Image) error {
+	if ebiten.IsRunningSlowly() {
+		return nil
+	}
+
 	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
 		mx, my := ebiten.CursorPosition()
 		lineTo(mx, my)
