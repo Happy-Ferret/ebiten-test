@@ -9,9 +9,11 @@ package main
 // https://github.com/golang/freetype
 // https://godoc.org/github.com/golang/freetype/truetype
 import (
+	"fmt"
 	"image"
 	"io/ioutil"
 	"log"
+	"math"
 	"strings"
 
 	"github.com/golang/freetype/truetype"
@@ -39,8 +41,8 @@ type TTFManager struct {
 }
 
 type TTFText struct {
-	man     *TTFManager   // reference to textureManager to ask.
-	texture *ebiten.Image // texture canvas to write.
+	man    *TTFManager   // reference to textureManager to ask.
+	canvas *ebiten.Image // canvas(texture) to write.
 }
 
 func (man *TTFManager) Setup(path string, size int) error {
@@ -83,17 +85,22 @@ func (man *TTFManager) Setup(path string, size int) error {
 
 func (man *TTFManager) CreateText(path string) *TTFText {
 	text := &TTFText{man, nil}
+
 	return text.SetText(path)
 }
 
 func (text *TTFText) SetText(s string) *TTFText {
 	// 1. calc boundary.
 	// 2. render the s on image.
-	// 3. render the image on the texture.
+	// 3. render the image on the canvas.
 
-	if text.texture != nil {
-		text.texture.Dispose()
-		text.texture = nil
+	if text.canvas != nil {
+		text.canvas.Dispose()
+		text.canvas = nil
+	}
+
+	if len(s) == 0 {
+		return text
 	}
 
 	para := strings.Split(s, "\n")
@@ -105,7 +112,7 @@ func (text *TTFText) SetText(s string) *TTFText {
 	w := bounds.Max.X.Ceil()
 	h := text.man.ttf.sh * len(para)
 
-	texture, err := ebiten.NewImage(w, h, ebiten.FilterNearest)
+	canvas, err := ebiten.NewImage(w, h, ebiten.FilterNearest)
 	if err != nil {
 		return nil
 	}
@@ -121,24 +128,26 @@ func (text *TTFText) SetText(s string) *TTFText {
 		d.DrawString(p)
 	}
 
-	texture.ReplacePixels(dst.Pix)
-	text.texture = texture
+	canvas.ReplacePixels(dst.Pix)
+	text.canvas = canvas
 
 	return text
 }
 
 func (text *TTFText) Size() (width, height int) {
-	if text.texture == nil {
+	if text.canvas == nil {
 		return 0, 0
 	}
-	return text.texture.Size()
+	return text.canvas.Size()
 }
 
 var (
 	ttfManager *TTFManager
 	mainBody   *TTFText
 	pressNext  *TTFText
+	statsText  *TTFText
 	index      int
+	tick       int
 )
 
 var instruction = "Press [0] for English. [1] for Japanese. [2] for French."
@@ -188,6 +197,8 @@ func SwitchText(i int) {
 }
 
 func update(screen *ebiten.Image) error {
+	tick++
+
 	if ebiten.IsKeyPressed(ebiten.Key0) {
 		SwitchText(0)
 	} else if ebiten.IsKeyPressed(ebiten.Key1) {
@@ -201,18 +212,35 @@ func update(screen *ebiten.Image) error {
 	}
 
 	// print at left-top.
-	screen.DrawImage(mainBody.texture, &ebiten.DrawImageOptions{})
+	screen.DrawImage(mainBody.canvas, &ebiten.DrawImageOptions{})
 
-	// print at bottom-right.
 	op := &ebiten.DrawImageOptions{}
-	w, h := pressNext.Size()
-	op.GeoM.Translate(float64(WIDTH-w), float64(HEIGHT-h))
-	screen.DrawImage(pressNext.texture, op)
+	{ // print at bottom-right.
+		w, h := pressNext.Size()
+		op.GeoM.Translate(float64(WIDTH-w), float64(HEIGHT-h))
+		theta := math.Pi * float64(tick%(ebiten.FPS*2)) / (ebiten.FPS * 2)
+		sin := math.Min(1.0, math.Sin(theta)*1.5)
+		op.ColorM.Scale(0.0, 1.0, 1.0, sin)
+		screen.DrawImage(pressNext.canvas, op)
+	}
+
+	op.GeoM.Reset()
+	op.ColorM.Reset()
+	{ // print at top-right.
+		sw, sh := mainBody.Size()
+		statsText.SetText(fmt.Sprintf("canvas allocate %dx%d", sw, sh))
+
+		w, _ := statsText.Size()
+		op.GeoM.Translate(float64(WIDTH-w), 0)
+		op.ColorM.Scale(0.6, 0.6, 0.6, 1.0)
+		screen.DrawImage(statsText.canvas, op)
+	}
 	return nil
 }
 
 func main() {
 	index = 0
+	tick = 0
 
 	ttfManager = &TTFManager{}
 	if err := ttfManager.Setup("../assets/mplus-1p-regular.ttf", 18); err != nil {
@@ -221,6 +249,7 @@ func main() {
 
 	mainBody = ttfManager.CreateText(constitution[index])
 	pressNext = ttfManager.CreateText(instruction)
+	statsText = ttfManager.CreateText("")
 	if err := ebiten.Run(update, WIDTH, HEIGHT, SCALE, "Font"); err != nil {
 		log.Fatal(err)
 	}
