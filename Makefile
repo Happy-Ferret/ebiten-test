@@ -2,6 +2,7 @@ install:
 	go get github.com/hajimehoshi/ebiten/...
 	go get github.com/gopherjs/gopherjs
 	go get github.com/gopherjs/webgl
+	go get github.com/golang/freetype
 	npm install
 
 update:

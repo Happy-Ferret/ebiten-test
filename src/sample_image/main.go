@@ -15,7 +15,7 @@ const (
 
 var (
 	tick   int
-	back *ebiten.Image
+	back   *ebiten.Image
 	gopher *ebiten.Image
 )
 
