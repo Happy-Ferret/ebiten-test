@@ -3,6 +3,7 @@ install:
 	go get github.com/gopherjs/gopherjs
 	go get github.com/gopherjs/webgl
 	go get github.com/golang/freetype
+	rm -rf node_modules
 	npm install
 
 update:
