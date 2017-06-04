@@ -2,7 +2,8 @@
 // https://github.com/hajimehoshi/ebiten/blob/master/examples/font/main.go
 
 // This sample is for a system that each TTFFont has its texture (individual canvas).
-// We'll need smarter system to manage each letter.
+// In general game development, much smarter (but bigger) system is used.
+// I'll make such system in the future.
 
 package main
 

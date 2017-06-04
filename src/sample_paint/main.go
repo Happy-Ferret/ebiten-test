@@ -9,6 +9,7 @@ import (
 	"math"
 
 	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/ebitenutil"
 )
 
 const (
@@ -126,6 +127,9 @@ func update(screen *ebiten.Image) error {
 
 	// draw canvas to screen.
 	screen.DrawImage(canvasImage, nil)
+
+	// display the text using debug output.
+	ebitenutil.DebugPrint(screen, "Dragging a mouse for drawings!")
 
 	return nil
 }
