@@ -1,4 +1,4 @@
-// based on https://github.com/hajimehoshi/ebiten/blob/master/examples/paint/main.go
+// based on https://github.com/hajimehoshi/ebiten/blob/master/examples/rotate/main.go
 
 package main
 

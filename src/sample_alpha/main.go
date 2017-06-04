@@ -1,5 +1,3 @@
-// based on https://github.com/hajimehoshi/ebiten/blob/master/examples/paint/main.go
-
 package main
 
 import (
