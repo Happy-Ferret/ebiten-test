@@ -2,7 +2,6 @@
 node_modules
 .node_modules
 _src
-_build
 
 # ignore Apple DS Store
 *.DS_Store
@@ -23,13 +22,10 @@ Thumbs.db
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
 
-cover.out
-.go-version
 .node-version
-glide.lock
+_build/
+github.com
+golang.org
 vendor/
 .idea
-bin/
-pkg/
-src/github.com
-src/golang.org
+

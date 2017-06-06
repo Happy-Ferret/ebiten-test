@@ -6,11 +6,8 @@ install:
 	rm -rf node_modules
 	npm install
 
-update:
-	cd src/sample && glide up
-
 format: # Format source code
-	gofmt -w ./src/sample_*/
+	gofmt -w ./sample_*/
 
 build:
 	npm run build

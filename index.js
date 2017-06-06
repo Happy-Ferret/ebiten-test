@@ -22,12 +22,15 @@ const assetFolder = './assets';
 // preProcess.
 function preProcess() {
     // clean up work folders just in case.
-    return fs.removeAsync(scriptFolder);
+    return Promise.all([
+        fs.removeAsync(scriptFolder),
+        fs.removeAsync(dstFolder)
+    ]);
 }
 
 // enumerate go sample directories.
 function enumGoFiles() {
-    return EnumFiles.dir('./src')
+    return EnumFiles.dir('.')
     .then((directories) => {
         return directories.filter((directory) => {
             return /sample_.*$/.test(directory);
@@ -46,7 +49,7 @@ function gopherJS(sampleFolders) {
         const srcGo = `${scriptFolder}/main.go`;
         const dstJS = `${scriptFolder}/${dirname}.js`;
 
-        return fs.copyAsync(`./src/${dirname}/main.go`, srcGo)
+        return fs.copyAsync(`./${dirname}/main.go`, srcGo)
         .then(() => {
             return new Promise((resolve, reject) => {
                 exec(`gopherjs build ${srcGo} -o ${dstJS}`, (err, stdout, stderr) => {
@@ -94,7 +97,7 @@ function makeSourceFiles(samples) {
     .each((sample) => {
         // make each one.
         const targetDir = `${dstFolder}/${sample}`;
-        const go = `./src/${sample}/main.go`;
+        const go = `./${sample}/main.go`;
 
         return Promise.all([
             fs.ensureDirAsync(targetDir),
