@@ -12,16 +12,27 @@
     <title><%= title %></title>
 
     <script>
+        function getIFrameDocument(id) {
+            var frame = document.getElementById(id);
+            if (frame.contentDocument) {
+                return frame.contentDocument;
+            }
+            return frame.contentWindow.document;
+        }
+
         function changeContent(dir) {
-            var path = document.contentFrame.location.href.split('/');
+            var contentFrame = getIFrameDocument('contentFrame');
+            var sourceFrame = getIFrameDocument('sourceFrame');
+
+            var path = contentFrame.location.href.split('/');
             path.pop();
             path.pop();
             path.push(dir)
             path.push('')
             path = path.join('/');
-            if (path !== document.contentFrame.location.href) {
-                document.contentFrame.location.replace(path + 'index.html');
-                document.sourceFrame.location.replace(path + 'code.html');
+            if (path !== contentFrame.location.href) {
+                contentFrame.location.replace(path + 'index.html');
+                sourceFrame.location.replace(path + 'code.html');
             }
         }
     </script>
@@ -51,10 +62,10 @@
 
             </div>
             <div class="view">
-                <iframe src="./sample_tutorial1/index.html" name="contentFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+                <iframe src="./sample_tutorial1/index.html" id="contentFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
             </div>
             <div class="code">
-                <iframe src="./sample_tutorial1/code.html" name="sourceFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+                <iframe src="./sample_tutorial1/code.html" id="sourceFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
             </div>
         </div>
     </div>
