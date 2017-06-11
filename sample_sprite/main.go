@@ -1,7 +1,10 @@
-package main
-
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+//
 // very simple Sprite class implementaion.
 // The next step would be implement node chain.
+
+package main
 
 import (
 	"github.com/hajimehoshi/ebiten"

@@ -1,6 +1,8 @@
-package main
-
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
 // https://github.com/hajimehoshi/ebiten/wiki/Tutorial:Your-first-game-in-Ebiten
+
+package main
 
 import (
 	"github.com/hajimehoshi/ebiten"

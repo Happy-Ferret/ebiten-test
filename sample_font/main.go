@@ -1,3 +1,6 @@
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+
 // ebiten official sample is here.
 // https://github.com/hajimehoshi/ebiten/blob/master/examples/font/main.go
 

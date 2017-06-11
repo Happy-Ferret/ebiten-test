@@ -1,3 +1,6 @@
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+
 // based on https://github.com/hajimehoshi/ebiten/blob/master/examples/rotate/main.go
 
 package main

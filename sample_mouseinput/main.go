@@ -1,3 +1,6 @@
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+
 package main
 
 // https://github.com/hajimehoshi/ebiten/wiki/Tutorial%3AHandle-user-inputs

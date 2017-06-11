@@ -1,14 +1,17 @@
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+
 package main
 
 // https://golang.org/pkg/encoding/json/
 
 import (
-	"encoding/json"
 	"fmt"
 	"image"
 	"image/color"
-	"io/ioutil"
 	"path"
+	"io"
+	"encoding/json"
 
 	"github.com/hajimehoshi/ebiten"
 	"github.com/hajimehoshi/ebiten/ebitenutil"
@@ -49,9 +52,54 @@ type texMeta struct {
 type jsonData struct {
 	Frame []texFrame `json:"frames"`
 	Meta  texMeta    `json:"meta"`
+
+	// additional field.
+	FileName string
 }
 
-func (data *jsonData) PostProcess() {
+func (data *jsonData) ReadFile(filename string) error {
+	var (
+		err error
+		fs  ebitenutil.ReadSeekCloser
+		len int64
+		bin []byte
+	)
+
+	// ebitenutil.OpenFile is great!!
+	// It supports local files on JS!
+	fs, err = ebitenutil.OpenFile(filename)
+	defer fs.Close()
+	if err != nil {
+		return err
+	}
+
+	len, err = fs.Seek(0, io.SeekEnd)
+	if err != nil {
+		return err
+	}
+
+	_, err = fs.Seek(0, io.SeekStart)
+	if err != nil {
+		return err
+	}
+
+	bin = make([]byte, len)
+	_, err = fs.Read(bin)
+	if err != nil {
+		return err
+	}
+
+	// Unmarshal the binary data to the jsonData structure.
+	json.Unmarshal(bin, data)
+
+	data.PostProcess(filename)
+
+	return nil
+}
+
+func (data *jsonData) PostProcess(filename string) {
+	data.FileName = path.Join(path.Dir(filename), data.Meta.Image)
+
 	for i := 0; i < len(data.Frame); i++ {
 		texRect := &data.Frame[i].Frame
 		texRect.Rect = image.Rect(texRect.X, texRect.Y, texRect.X+texRect.W, texRect.Y+texRect.H)
@@ -109,21 +157,14 @@ func update(screen *ebiten.Image) error {
 
 func main() {
 	var err error
-	var jsonFile []byte
 
 	tick = 0
 
-	jsonFile, err = ioutil.ReadFile("../assets/testjson.json")
-	if err != nil {
+	if err = data.ReadFile(jsonFileName); err != nil {
 		panic(err)
 	}
 
-	// Unmarshal the binary data to the jsonData structure.
-	json.Unmarshal(jsonFile, &data)
-	data.PostProcess()
-
-	texFileName = path.Join(path.Dir(jsonFileName), data.Meta.Image)
-	atlasTexture, _, err = ebitenutil.NewImageFromFile(texFileName, ebiten.FilterNearest)
+	atlasTexture, _, err = ebitenutil.NewImageFromFile(data.FileName, ebiten.FilterNearest)
 	if err != nil {
 		panic(err)
 	}
