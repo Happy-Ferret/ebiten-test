@@ -57,10 +57,6 @@ func (p *RGBA8) FGetColor() (r, g, b, a float64) {
 	return float64(p.r) / 255.0, float64(p.g) / 255.0, float64(p.b) / 255.0, float64(p.a) / 255.0
 }
 
-type Primitive interface {
-	Render(target *ebiten.Image)
-}
-
 // primitive Sprite.
 type Sprite struct {
 	anchor Vector2

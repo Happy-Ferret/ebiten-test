@@ -40,8 +40,7 @@ type texSize struct {
 }
 
 type texFrame struct {
-	Filename string  `json:"filename"`
-	Frame    texRect `json:"frame"`
+	Frame texRect `json:"frame"`
 }
 
 type texMeta struct {
