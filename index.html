@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Shrikhand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="./css/layout.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <title>ebiten samples</title>
+
+    <script>
+        function getIFrameDocument(id) {
+            var frame = document.getElementById(id);
+            if (frame.contentDocument) {
+                return frame.contentDocument;
+            }
+            return frame.contentWindow.document;
+        }
+
+        function changeContent(dir) {
+            var contentFrame = getIFrameDocument('contentFrame');
+            var sourceFrame = getIFrameDocument('sourceFrame');
+
+            var path = contentFrame.location.href.split('/');
+            path.pop();
+            path.pop();
+            path.push(dir)
+            path.push('')
+            path = path.join('/');
+            if (path !== contentFrame.location.href) {
+                contentFrame.location.replace(path + 'index.html');
+                sourceFrame.location.replace(path + 'code.html');
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 headline">
+            <image src="./assets/fish.png" align="left" width="64" height="64" style="padding: 0.5em 0.5em;"></image>
+            <h1>ebiten samples</h1>
+            <h2><a href="https://github.com/hirowaki/ebiten-test" target="_blank">https://github.com/hirowaki/ebiten-test</a></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="samples col-xs-2">
+            <ul>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_alpha');">SampleAlpha</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_anime');">SampleAnime</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_atlas');">SampleAtlas</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_atlas2');">SampleAtlas2</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_color');">SampleColor</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_font');">SampleFont</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_image');">SampleImage</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_keyinput');">SampleKeyinput</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_mouseinput');">SampleMouseinput</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_mousepos');">SampleMousepos</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_paint');">SamplePaint</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_rotate');">SampleRotate</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_scale');">SampleScale</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_sprite');">SampleSprite</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_tutorial1');">SampleTutorial1</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_tutorial2');">SampleTutorial2</a></li>
+                
+                    
+                    <li><a href="javascript:void(0);" onClick="changeContent('sample_uvtest');">SampleUvtest</a></li>
+                
+            </ul>
+        </div>
+        <div class="content col-xs-10">
+            <div style="font-size: 75%; text-align: right;">
+                ebiten by <a href="https://github.com/hajimehoshi/ebiten" target="_blank">hajimehoshi</a>, licensed under Apache License 2.0.<br>
+                The Go gopher was designed by <a href="https://reneefrench.blogspot.jp/" target="_blank">Renee French</a>, licensed under the Creative Commons 3.0 Attributions license.
+
+            </div>
+            <div class="view">
+                <iframe src="./sample_tutorial1/index.html" id="contentFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+            </div>
+            <div class="code">
+                <iframe src="./sample_tutorial1/code.html" id="sourceFrame" width="640" height="480" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

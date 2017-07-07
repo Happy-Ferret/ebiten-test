@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <script type="text/javascript" src="../lib/codemirror.js"></script>
+    <script type="text/javascript" src="../lib/go.js"></script>
+</head>
+
+<body style="font-family: 'Timmana', sans-serif;">
+    <div>
+        sample_keyinput.go
+    </div>
+
+    <div>
+        <textarea id="code" width="100%">
+// Copyright (c) 2017 hirowaki https://github.com/hirowaki
+// ebiten (https://github.com/hajimehoshi/ebiten) Copyright (c) 2013 Hajime Hoshi
+// https://github.com/hajimehoshi/ebiten/wiki/Tutorial%3AHandle-user-inputs
+
+package main
+
+import (
+	"github.com/hajimehoshi/ebiten"
+	"github.com/hajimehoshi/ebiten/ebitenutil"
+	"image/color"
+)
+
+func update(screen *ebiten.Image) error {
+	// Fill the screen with blue.
+	screen.Fill(color.NRGBA{0x00, 0x00, 0xff, 0xff})
+
+	// display the text using debug output.
+	ebitenutil.DebugPrint(screen, "Press cursor keys!")
+
+	str := "\n"
+	// UP.
+	if ebiten.IsKeyPressed(ebiten.KeyUp) {
+		str += "You're pressing the 'UP' button.\n"
+	}
+	// DOWN.
+	if ebiten.IsKeyPressed(ebiten.KeyDown) {
+		str += "You're pressing the 'DOWN' button.\n"
+	}
+	// LEFT.
+	if ebiten.IsKeyPressed(ebiten.KeyLeft) {
+		str += "You're pressing the 'LEFT' button.\n"
+	}
+	// RIGHT.
+	if ebiten.IsKeyPressed(ebiten.KeyRight) {
+		str += "You're pressing the 'RIGHT' button."
+	}
+
+	ebitenutil.DebugPrint(screen, str)
+	return nil
+}
+
+func main() {
+	if err := ebiten.Run(update, 320, 240, 2, "Hello world!"); err != nil {
+		panic(err)
+	}
+}
+
+        </textarea>
+    </div>
+</body>
+
+<script>
+    CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'go',
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        viewportMargin: Infinity,
+        lineWrapping: true,
+        readOnly: "nocursor"
+    });
+</script>
+
+</html>

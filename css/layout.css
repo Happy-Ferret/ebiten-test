@@ -1,0 +1,57 @@
+.container {
+    max-width: none !important;
+    width: 970px;
+}
+
+.headline {
+    background: #F0F0F0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Shrikhand', cursive;
+    font-size: 24px;
+    padding: 0.1em 1em 0 0.5em;
+}
+
+h2 {
+    font-size: 12px;
+    padding: 0.1em 1em 0 0.1em;
+    text-align: right;
+}
+
+.samples {
+    padding: 0;
+}
+
+.content {
+    padding: 0;
+}
+
+.view {
+    padding: 1em 1em 0.5em 1em;
+}
+
+.code {
+    padding: 0em 1em 0em 1em;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #F8F8F8;
+    font-size: 80%;
+}
+
+li a {
+    display: block;
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #555555;
+    color: white;
+}
+
